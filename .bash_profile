@@ -17,8 +17,6 @@ shopt -s histappend
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 
-[[ -s ~/.bashrc ]] && source ~/.bashrc
-
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
@@ -58,6 +56,21 @@ function flushdns() {
        sudo killall -HUP mDNSResponder;sudo killall mDNSResponderHelper;sudo dscacheutil -flushcache
 }
 
+function cvenv27() {
+    virtualenv -p /usr/bin/python2.7 venv
+    source venv/bin/activate
+}
+
+function activate() {
+     source venv/bin/activate
+}
+
+function cvenv36() {
+    virtualenv -p /usr/bin/python3.6 venv
+    source venv/bin/activate
+}
+
+
 function movtogif() {
     if [ "$1" == "" ];
     then
@@ -77,7 +90,13 @@ function redText() {
 function install() {
     say 'Setup starting'
 
-    if [ "$OSTYPE" == "darwin" ] && [ ! -d "/Applications/Xcode.app/Contents/Developer" ];
+    if [ "$OSTYPE" != "darwin" ]; 
+    then
+        echo "this is for OSX only"
+        exit 1
+    fi
+
+    if [ ! -d "/Applications/Xcode.app/Contents/Developer" ];
     then
         echo "Installing xcode"
         sudo xcode-select --install

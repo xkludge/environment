@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "new_note",
+        "command": "echo '# ${input:fileName}\n\n## Notes\n\n* \n\n## Action Items\n\n* \n\n' > `date +%Y-%m-%d-%H:%M`-${input:fileName}.md",
+        "type": "shell",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": false,
+          "reveal": "silent",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": false,
+          "clear": true
+        },
+        "promptOnClose": false
+      },
+      {
+        "label": "new_plantuml",
+        "command": "echo \"@startuml\n/'alt+d to display https://plantuml.com/'/\nClient -> Identity: Client Credentials\nIdentity --> Client: Token\n@enduml\" > _plantuml/src/`date +%Y-%m-%d-%H:%M`-${input:fileName}.puml", 
+        "type": "shell",
+        "problemMatcher": [],
+        "presentation": {
+          "echo": false,
+          "reveal": "silent",
+          "focus": false,
+          "panel": "shared",
+          "showReuseMessage": false,
+          "clear": true
+        },
+        "promptOnClose": false
+      }
+    ],
+  
+    "inputs": [
+      {
+        "type": "promptString",
+        "id": "fileName",
+        "description": "Complete my file name.",
+        "default": "new-file-name",
+      }
+    ]
+  }

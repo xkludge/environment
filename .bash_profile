@@ -90,28 +90,6 @@ function redText() {
 function install() {
     say 'Setup starting'
 
-    if [ "$OSTYPE" != "darwin" ]; 
-    then
-        echo "this is for OSX only"
-        exit 1
-    fi
-
-    if [ ! -d "/Applications/Xcode.app/Contents/Developer" ];
-    then
-        echo "Installing xcode"
-        sudo xcode-select --install
-        if [ "$?" != "0" ];
-        then
-            redText "Install xcode from the appstore"
-            open https://developer.apple.com/xcode/
-            exit 1
-        fi
-    else
-        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-        sudo xcodebuild -license accept
-    fi
-
-
     echo "Installing nvm"
     if [ -z ~/.nvm ];
     then
@@ -148,4 +126,8 @@ export HEAP="-Xms2g -Xmx6g"
 
 prompt
 
-export PATH="/usr/local/bin:/usr/local/sbin:~/bin:~/.nvm:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:~/bin:~/.nvm:/opt/homebrew/bin/:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
